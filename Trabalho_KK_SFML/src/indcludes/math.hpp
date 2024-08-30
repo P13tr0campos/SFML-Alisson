@@ -13,14 +13,19 @@
 #include <ctime>
 #include <vector>
 
+namespace math{
+
 template <typename coord>
 class coordenada {
 public:
 	coord x;
 	coord y;
 public:
+	coordenada(coord x, coord y);
+	coordenada();
+	~coordenada(){}
 
-	void operator=(coordenada<coord> other);
+	void operator= (coordenada<coord> other);
 	void operator+=(coordenada<coord> other);
 	void operator-=(coordenada<coord> other);
 	void operator*=(coordenada<coord> other);
@@ -29,10 +34,10 @@ public:
 };
 
 template <typename coord>
-	coordenada<coord>:: coordenada(coord x ,coord y){
+	coordenada<coord>:: coordenada(coord x, coord y):
 			x(x),
-			y(y);
-}
+			y(y){}
+
 
 template <typename coord>
 	coordenada<coord>:: coordenada(){
@@ -46,6 +51,28 @@ template <typename coord>
 		this->y = other.y;
 
 	}
+template <typename coord>
+	void coordenada<coord>:: operator+=(coordenada<coord> other){
+		this->x += other.x;
+		this->y += other.y;
+}
+template <typename coord>
+	void coordenada<coord>:: operator-=(coordenada<coord> other){
 
+		this->x -= other.x;
+		this->y -= other.y;
+
+	}
+template <typename coord>
+	void coordenada<coord>:: operator*=(coordenada<coord> other){
+		this->x *= other.x;
+		this->y *= other.y;
+}
+template <typename coord>
+	void coordenada<coord>:: operator/=(coordenada<coord> other){
+		this->x /= other.x;
+		this->y /= other.y;
+}
+}
 
 #endif /* MATH_HPP_ */

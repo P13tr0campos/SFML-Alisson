@@ -10,12 +10,17 @@
 #ifndef ENTIDADES_HPP_
 #define ENTIDADES_HPP_
 
-enum{
+enum ID{
 	vazio,
 	ID
 };
 
 class entidade{
+protected:
+	ID id;
+
+public:
+	entidade(math::coordenada<float> position = math::coordenada(0.f, 0.f),math::coordenada<float> tamnaho = math::coordenada(0.f, 0.f), ID id = vazio);
 
 };
 
