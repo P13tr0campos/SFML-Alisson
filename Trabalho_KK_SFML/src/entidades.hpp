@@ -11,8 +11,11 @@
 #define ENTIDADES_HPP_
 
 enum ID{
-	vazio,
-	ID
+	vazio =0,
+	player,
+	projeteis,
+	inimigo,
+	plataformas
 };
 
 class entidade{
@@ -21,6 +24,15 @@ protected:
 
 public:
 	entidade(math::coordenada<float> position = math::coordenada(0.f, 0.f),math::coordenada<float> tamnaho = math::coordenada(0.f, 0.f), ID id = vazio);
+
+	~entidade();
+
+	void setaPosicao(math::coordenada pos);
+
+	math::coordenada pegaPosicao() const;
+
+	ID getId() const;
+
 
 };
 

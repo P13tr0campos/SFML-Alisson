@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include <math.hpp>
+
 
  #include<SFML/Graphics.hpp>
 
