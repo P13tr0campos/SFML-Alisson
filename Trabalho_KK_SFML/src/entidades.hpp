@@ -5,7 +5,8 @@
  *      Author: campo
  */
 #include <iostream>
-#include <math.hpp>
+
+#include "includes/math.hpp"
 
 #ifndef ENTIDADES_HPP_
 #define ENTIDADES_HPP_

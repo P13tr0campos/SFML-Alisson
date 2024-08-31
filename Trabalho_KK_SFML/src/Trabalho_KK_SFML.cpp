@@ -9,9 +9,8 @@
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-
-
- #include<SFML/Graphics.hpp>
+#include<SFML/Graphics.hpp>
+#include <includes/math.hpp>
 
 //Código principal.
  int main()
