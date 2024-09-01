@@ -6,9 +6,19 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include "includes/math.hpp"
+#include "map.hpp"
+#include "Bomb.hpp"
+
+class Bomba {
+public :
+	int Xcount;
+	int Ycount;
+};
 
 
 int main(){
+
+
 	// Criação da janela
 	sf::RenderWindow window{ sf::VideoMode(986,771), "King Kong" };
 
@@ -27,24 +37,26 @@ int main(){
 
 //------------------------------------BOMBA-------------------------------------------------------------//
 
+
+        Bomba b;
         sf::Texture texturaBomba;
-           if (!texturaBomba.loadFromFile("bomb1.png"))
+           if (!texturaBomba.loadFromFile("bombC.png"))
            {
                std::cerr << "Erro ao carregar a textura do arquivo" << std::endl;
                return -1;
            }
-           else{
+
+        	   // Criar um sprite e associá-lo à textura
         	   sf::Sprite spriteBomba;
         	   spriteBomba.setTexture(texturaBomba);
 
+        	   spriteBomba.setPosition(150, 130);
 
-           }
+        	   b.Xcount = 1;
+        	   b.Ycount = 0;
 
-           // Criar um sprite e associá-lo à textura
-           sf::Sprite spriteBomba;
-           spriteBomba.setTexture(texturaBomba);
+        	   spriteBomba.setTextureRect(sf::IntRect(b.Xcount * 32, b.Ycount  * 32, 32, 32));
 
-           spriteBomba.setPosition(180, 180);
 
 
 //Loop da janela
@@ -63,7 +75,7 @@ int main(){
 
 //Desenhar
                 window.draw(SpriteFundo);
-                 window.draw(spriteBomba);
+                window.draw(spriteBomba);
                 window.display();
         }
         return 0;
