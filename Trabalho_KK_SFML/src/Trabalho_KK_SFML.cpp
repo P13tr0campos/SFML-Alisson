@@ -5,15 +5,11 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <vector>
+#include <SFML/Graphics/Rect.hpp>
 #include "includes/math.hpp"
 #include "map.hpp"
 #include "Bomb.hpp"
-
-class Bomba {
-public :
-	int Xcount;
-	int Ycount;
-};
+#include "entidades.hpp"
 
 
 int main(){
@@ -21,45 +17,12 @@ int main(){
 
 	// Criação da janela
 	sf::RenderWindow window{ sf::VideoMode(986,771), "King Kong" };
+	window.setVerticalSyncEnabled(true);
 
-//------------------------------------FUNDO-------------------------------------------------------------//
+	Fundo fundo;
+	Bomba bomba;
 
-	// Carregar textura do Fundo a partir de um arquivo
-        sf::Texture texturaFundo;
-        if(!texturaFundo.loadFromFile("Fundo.png")){
-        	 std::cout << "Erro ao carregar a textura do arquivo" << std::endl;
-        	 return -1;
-        }
-
-        // Criar um sprite do Fundo para desenhar a textura
-        sf::Sprite SpriteFundo(texturaFundo);
-        SpriteFundo.setPosition(0,0);
-
-//------------------------------------BOMBA-------------------------------------------------------------//
-
-
-        Bomba b;
-        sf::Texture texturaBomba;
-           if (!texturaBomba.loadFromFile("bombC.png"))
-           {
-               std::cerr << "Erro ao carregar a textura do arquivo" << std::endl;
-               return -1;
-           }
-
-        	   // Criar um sprite e associá-lo à textura
-        	   sf::Sprite spriteBomba;
-        	   spriteBomba.setTexture(texturaBomba);
-
-        	   spriteBomba.setPosition(150, 130);
-
-        	   b.Xcount = 1;
-        	   b.Ycount = 0;
-
-        	   spriteBomba.setTextureRect(sf::IntRect(b.Xcount * 32, b.Ycount  * 32, 32, 32));
-
-
-
-//Loop da janela
+	//Loop da janela
         while (window.isOpen())
         {
                 sf::Event windowEvent;
@@ -69,14 +32,16 @@ int main(){
                                 window.close();
                 }
 
-
+                // Atualizações
+                       bomba.update();
 
                 window.clear(sf::Color::White);
 
-//Desenhar
-                window.draw(SpriteFundo);
-                window.draw(spriteBomba);
+		//Desenhar
+                window.draw(fundo.spriteFundo);
+                window.draw(bomba.spriteBomba);
                 window.display();
         }
         return 0;
 }
+
