@@ -16,6 +16,7 @@ int main(){
 	sf::RenderWindow window{ sf::VideoMode(986,771), "King Kong" };
 	window.setVerticalSyncEnabled(true);
 
+	//Declaração de objetos das classes
 	Fundo fundo;
 	Bomba bomba;
 	Personagem player;
@@ -30,20 +31,18 @@ int main(){
                                 window.close();
                 }
 
-                // Atualizações
-                     bomba.update();
-                     bomba.movimentacao(window);
-                     player.updatePlayer();
-                     player.mover();
+     // Atualizações
+           bomba.colisaoBomba(window);
+           player.updatePlayer();
+           player.mover();
 
+           window.clear(sf::Color::White);
 
-                window.clear(sf::Color::White);
-
-		//Desenhar
-                window.draw(fundo.spriteFundo);
-                window.draw(bomba.spriteBomba);
-                window.draw(player.playersfml);
-                window.display();
+     //Desenhar
+           window.draw(fundo.spriteFundo);
+           window.draw(bomba.spriteBomba);
+           window.draw(player.spriteJogador);
+           window.display();
         }
         return 0;
 }
