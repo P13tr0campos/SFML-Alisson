@@ -7,10 +7,7 @@
 #include <vector>
 #include <SFML/Graphics/Rect.hpp>
 #include "includes/math.hpp"
-#include "map.hpp"
-#include "Bomb.hpp"
 #include "entidades.hpp"
-
 
 int main(){
 
@@ -21,6 +18,7 @@ int main(){
 
 	Fundo fundo;
 	Bomba bomba;
+	Personagem player;
 
 	//Loop da janela
         while (window.isOpen())
@@ -33,15 +31,19 @@ int main(){
                 }
 
                 // Atualizações
-                       bomba.update();
+                     bomba.update();
+                     bomba.movimentacao(window);
+                     player.updatePlayer();
+                     player.mover();
+
 
                 window.clear(sf::Color::White);
 
 		//Desenhar
                 window.draw(fundo.spriteFundo);
                 window.draw(bomba.spriteBomba);
+                window.draw(player.playersfml);
                 window.display();
         }
         return 0;
 }
-
