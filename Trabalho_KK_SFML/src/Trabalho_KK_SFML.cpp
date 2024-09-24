@@ -1,37 +1,48 @@
-//============================================================================
-// Name        : Trabalho_KK_SFML.cpp
-// Author      : PietroCampos
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
-
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
-#include<SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
+#include <vector>
+#include <SFML/Graphics/Rect.hpp>
+#include "includes/math.hpp"
+#include "entidades.hpp"
 
-//Código principal.
- int main()
- {
- sf::RenderWindow window(
- sf::VideoMode(160,192),
- "HelloWorld");
- sf ::CircleShape shape (6);
+int main(){
 
- // Abertura da janela.
 
- while(window.isOpen())
- {
- sf::Event event;
- while(
- window.pollEvent(event))
- if(event.type==
- sf::Event::Closed)
- window.close();
- window.clear();
- window.draw(shape);
- window.display();
- }
- return 0;
- }
+	// Criação da janela
+	sf::RenderWindow window{ sf::VideoMode(986,771), "King Kong" };
+	window.setVerticalSyncEnabled(true);
+
+	//Declaração de objetos das classes
+	Fundo fundo;
+	Bomba bomba;
+	Personagem player;
+
+	//Loop da janela
+        while (window.isOpen())
+        {
+                sf::Event windowEvent;
+                while (window.pollEvent(windowEvent))
+                {
+                        if (windowEvent.type == sf::Event::Closed)
+                                window.close();
+                }
+
+     // Atualizações
+           bomba.colisaoBomba(window);
+           player.updatePlayer();
+           player.mover();
+
+           window.clear(sf::Color::White);
+
+     //Desenhar
+           window.draw(fundo.spriteFundo);
+           window.draw(bomba.spriteBomba);
+           window.draw(player.spriteJogador);
+           window.display();
+        }
+        return 0;
+}
