@@ -20,6 +20,7 @@ int main(){
 	Fundo fundo;
 	Bomba bomba;
 	Personagem player;
+	Princesa princesa;
 
 	//Loop da janela
         while (window.isOpen())
@@ -33,6 +34,7 @@ int main(){
 
      // Atualizações
            bomba.colisaoBomba(window);
+           princesa.colisaoPrincesa(window);
            player.updatePlayer();
            player.mover();
 
@@ -41,6 +43,7 @@ int main(){
      //Desenhar
            window.draw(fundo.spriteFundo);
            window.draw(bomba.spriteBomba);
+           window.draw(princesa.spritePrincesa);
            window.draw(player.spriteJogador);
            window.display();
         }
