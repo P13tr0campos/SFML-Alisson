@@ -89,6 +89,70 @@ public:
         }
 };
 
+//---------------------------------------PRINCESA----------------------------------------------------
+
+class Princesa {
+public:
+    sf::Texture texturaPrincesa[2];
+    sf::Sprite spritePrincesa;
+    int textura_correntePrincesa = 0;
+    int contadorPrincesa = 0; // Contador para troca de animação
+    float velocidadePrincesa = 200.0f; // Velocidade de movimento da bomba
+    bool MovimentoDireitaPrincesa = true; // Direção do movimento da bomba
+    sf::Clock TempoMovimentoPrincesa; // Relógio para calcular o tempo de movimento
+    sf::Clock TempoAnimacaoPrincesa;// Relógio para calcular o tempo de animação
+
+
+      // Limites da faixa onde a bomba pode se mover
+          float DistanciaEsquerda = 400.f;   // Distância da borda esquerda da janela
+          float DistanciaDireita = 600.f; // Distância da borda direita da janela
+
+
+    //Construtor
+    Princesa() {
+        texturaPrincesa[0].loadFromFile("mulher-sfml-TP.png", sf::IntRect(0, 0, 16, 17));
+        texturaPrincesa[1].loadFromFile("mulher-sfml-TP.png", sf::IntRect(16, 0, 32, 17));
+        spritePrincesa.setTexture(texturaPrincesa[textura_correntePrincesa]);
+        spritePrincesa.setPosition(400, 65);
+        spritePrincesa.setScale(2,2);
+    }
+
+    // Atualiza a animação da bomba
+    void updatePrincesa() {
+            if (TempoAnimacaoPrincesa.getElapsedTime().asMilliseconds() >= 100) { // Troca a textura a cada 100ms
+                contadorPrincesa++;
+                if (contadorPrincesa >= 10) { // Após 10 iterações, reinicia o contador
+                    contadorPrincesa = 0;
+                    textura_correntePrincesa = (textura_correntePrincesa + 1) % 3;
+                    spritePrincesa.setTexture(texturaPrincesa[textura_correntePrincesa]);
+                }
+                TempoAnimacaoPrincesa.restart(); // Reinicia o relógio de animação
+            }
+        }
+
+    void movimentacaoPrincesa(sf::RenderWindow& window) {
+            sf::Time TempoPrincesa = TempoMovimentoPrincesa.restart();
+
+            // Move a bomba para a direita ou esquerda e verifica colisão com as bordas da faixa verde
+            if (MovimentoDireitaPrincesa) {
+                spritePrincesa.move(velocidadePrincesa * TempoPrincesa.asSeconds(), 0); // Move a bomba para a direita
+                if (spritePrincesa.getPosition().x + spritePrincesa.getGlobalBounds().width >= DistanciaDireita) {
+                	MovimentoDireitaPrincesa = false; // Inverte a direção ao atingir o limite direito
+                }
+            } else {
+                spritePrincesa.move(-velocidadePrincesa * TempoPrincesa.asSeconds(), 0); // Move a bomba para a esquerda
+                if (spritePrincesa.getPosition().x <= DistanciaEsquerda) {
+                	MovimentoDireitaPrincesa = true; // Inverte a direção ao atingir o limite esquerdo
+                }
+            }
+        }
+
+      void colisaoPrincesa(sf::RenderWindow& window) {
+            movimentacaoPrincesa(window); // Atualiza a movimentação da bomba
+            updatePrincesa(); // Atualiza a animação da bomba
+        }
+};
+
 //--------------------------------------- JOGADOR----------------------------------------------------
 
 
@@ -103,6 +167,7 @@ public:
     float gravidade = 0.2f;
     float puloForca = -4.6f;
     float alturaChao = 630;
+    bool subindoEscada = false;
 
     Personagem() {
         TexturaJogador[0].loadFromFile("player-sfml-TP_Andando.png", sf::IntRect(0, 0, 16, 48));
@@ -123,36 +188,52 @@ public:
     }
 
     void mover() {
-        sf::Vector2f posicao = spriteJogador.getPosition();
+    	sf::Vector2f posicao = spriteJogador.getPosition();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            spriteJogador.move(2, 0);
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            spriteJogador.move(-2, 0);
-        }
+    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
+    	   		   		if (spriteJogador.getPosition().x < 870)
+    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(1 ,0));
+    	   		   		 }
+    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
+    	   		   		if (spriteJogador.getPosition().x > 70)
+    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(-1 ,0));
 
-        //Colisao
-        if (spriteJogador.getPosition().y >= alturaChao) {
-            spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
-            ColisaoChao = true;
-            velocidadeY = 0;
-        }
+    	   		   		 }
+    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+    	   		   		if (spriteJogador.getPosition().y >0 ) //adcionar limite
+    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(0, -1));
+    	   		   		  }
+    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
+    	   		   		if (spriteJogador.getPosition().y < 0 ) //adcionar limite
+    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(0, 1));
+    	   		   		  }
 
-        // Pulo
-        if (ColisaoChao && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            velocidadeY = puloForca;
-           ColisaoChao = false;
-        }
 
-        velocidadeY += gravidade;
-        spriteJogador.move(0, velocidadeY);
-    	}
 
-    	bool colisao(sf::FloatRect Objeto) {
-    		return spriteJogador.getGlobalBounds().intersects(Objeto);
-    	}
- };
+                      //Colisão
+                if (spriteJogador.getPosition().y >= alturaChao) {
+                                  spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
+                                  ColisaoChao = true;
+                                  velocidadeY = 0;
+                              }
+
+                              //Pulo
+                             if (ColisaoChao && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                                  velocidadeY = puloForca;
+                                 ColisaoChao = false;
+                              }
+
+                              velocidadeY += gravidade;
+                              spriteJogador.move(0, velocidadeY);
+
+                          	}//fim função mover
+
+                        bool colisao(sf::FloatRect Objeto) {
+                          		return spriteJogador.getGlobalBounds().intersects(Objeto);
+                          	}
+    };
+
+//--------------------------------------------- VIDAS E TEMPO------------------------------------------
 
 
 #endif /* ENTIDADES_HPP_ */
