@@ -97,15 +97,15 @@ public:
     sf::Sprite spritePrincesa;
     int textura_correntePrincesa = 0;
     int contadorPrincesa = 0; // Contador para troca de animação
-    float velocidadePrincesa = 200.0f; // Velocidade de movimento da bomba
-    bool MovimentoDireitaPrincesa = true; // Direção do movimento da bomba
-    sf::Clock TempoMovimentoPrincesa; // Relógio para calcular o tempo de movimento
-    sf::Clock TempoAnimacaoPrincesa;// Relógio para calcular o tempo de animação
+    float velocidadePrincesa = 200.0f;
+    bool MovimentoDireitaPrincesa = true;
+    sf::Clock TempoMovimentoPrincesa;
+    sf::Clock TempoAnimacaoPrincesa;
 
 
       // Limites da faixa onde a bomba pode se mover
-          float DistanciaEsquerda = 400.f;   // Distância da borda esquerda da janela
-          float DistanciaDireita = 600.f; // Distância da borda direita da janela
+          float DistanciaEsquerda = 400.f;
+          float DistanciaDireita = 600.f;
 
 
     //Construtor
@@ -123,7 +123,7 @@ public:
                 contadorPrincesa++;
                 if (contadorPrincesa >= 10) { // Após 10 iterações, reinicia o contador
                     contadorPrincesa = 0;
-                    textura_correntePrincesa = (textura_correntePrincesa + 1) % 3;
+                    textura_correntePrincesa = (textura_correntePrincesa + 1) % 2;
                     spritePrincesa.setTexture(texturaPrincesa[textura_correntePrincesa]);
                 }
                 TempoAnimacaoPrincesa.restart(); // Reinicia o relógio de animação
@@ -135,12 +135,12 @@ public:
 
             // Move a bomba para a direita ou esquerda e verifica colisão com as bordas da faixa verde
             if (MovimentoDireitaPrincesa) {
-                spritePrincesa.move(velocidadePrincesa * TempoPrincesa.asSeconds(), 0); // Move a bomba para a direita
+                spritePrincesa.move(velocidadePrincesa * TempoPrincesa.asSeconds(), 0);
                 if (spritePrincesa.getPosition().x + spritePrincesa.getGlobalBounds().width >= DistanciaDireita) {
                 	MovimentoDireitaPrincesa = false; // Inverte a direção ao atingir o limite direito
                 }
             } else {
-                spritePrincesa.move(-velocidadePrincesa * TempoPrincesa.asSeconds(), 0); // Move a bomba para a esquerda
+                spritePrincesa.move(-velocidadePrincesa * TempoPrincesa.asSeconds(), 0);
                 if (spritePrincesa.getPosition().x <= DistanciaEsquerda) {
                 	MovimentoDireitaPrincesa = true; // Inverte a direção ao atingir o limite esquerdo
                 }
@@ -148,8 +148,8 @@ public:
         }
 
       void colisaoPrincesa(sf::RenderWindow& window) {
-            movimentacaoPrincesa(window); // Atualiza a movimentação da bomba
-            updatePrincesa(); // Atualiza a animação da bomba
+            movimentacaoPrincesa(window);
+            updatePrincesa();
         }
 };
 
@@ -167,7 +167,7 @@ public:
     float gravidade = 0.2f;
     float puloForca = -4.6f;
     float alturaChao = 630;
-    bool subindoEscada = false;
+    float velocidadeMovimento = 2.0f;
 
     Personagem() {
         TexturaJogador[0].loadFromFile("player-sfml-TP_Andando.png", sf::IntRect(0, 0, 16, 48));
@@ -190,15 +190,18 @@ public:
     void mover() {
     	sf::Vector2f posicao = spriteJogador.getPosition();
 
-    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::D)){
-    	   		   		if (spriteJogador.getPosition().x < 870)
-    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(1 ,0));
-    	   		   		 }
-    	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::A)){
-    	   		   		if (spriteJogador.getPosition().x > 70)
-    	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(-1 ,0));
-
-    	   		   		 }
+    					if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+    						if (posicao.x < 870) {
+    							spriteJogador.move(velocidadeMovimento, 0);
+    							spriteJogador.setScale(3, 3);
+    						}
+    					}
+    					 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+    					     if (posicao.x > 70) {
+    					        spriteJogador.move(-velocidadeMovimento, 0);
+    					        spriteJogador.setScale(-3, 3); // inverte escala
+    					     }
+    					 }
     	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
     	   		   		if (spriteJogador.getPosition().y >0 ) //adcionar limite
     	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(0, -1));
@@ -232,8 +235,5 @@ public:
                           		return spriteJogador.getGlobalBounds().intersects(Objeto);
                           	}
     };
-
-//--------------------------------------------- VIDAS E TEMPO------------------------------------------
-
 
 #endif /* ENTIDADES_HPP_ */
