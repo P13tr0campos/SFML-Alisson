@@ -13,7 +13,7 @@ int main(){
 
 
 	// Criação da janela
-	sf::RenderWindow window{ sf::VideoMode(986,771), "King Kong" };
+	sf::RenderWindow window{ sf::VideoMode(990,750), "King Kong" };
 	window.setVerticalSyncEnabled(true);
 
 	//Declaração de objetos das classes
@@ -21,6 +21,10 @@ int main(){
 	Bomba bomba;
 	Personagem player;
 	Princesa princesa;
+	FonteTexto tempo, fase;
+    sf::Clock clock;
+	bool temporizador = false; // Variável para controlar se o temporizador começou
+
 
 	//Loop da janela
         while (window.isOpen())
@@ -38,13 +42,14 @@ int main(){
            player.updatePlayer();
            player.mover();
 
-           window.clear(sf::Color::White);
-
      //Desenhar
+           window.clear(sf::Color::White);
            window.draw(fundo.spriteFundo);
            window.draw(bomba.spriteBomba);
            window.draw(princesa.spritePrincesa);
            window.draw(player.spriteJogador);
+           tempo.atualizaContador(window, temporizador);
+           fase.fasePersonagem(window);
            window.display();
         }
         return 0;
