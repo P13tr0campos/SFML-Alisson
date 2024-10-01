@@ -5,20 +5,23 @@
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include "includes/math.hpp"
 
+
+//---------------------------------------FUNDO------------------------------------------------------
+
 class Fundo {
 public:
     sf::Texture texturaFundo;
     sf::Sprite spriteFundo;
 
-//---------------------------------------FUNDO------------------------------------------------------
     Fundo() {
-        if (!texturaFundo.loadFromFile("Fundo.png")) {
+        if (!texturaFundo.loadFromFile("NovoFundo.png")) {
             std::cout << "Erro ao carregar a textura do arquivo" << std::endl;
         }
         spriteFundo.setTexture(texturaFundo);
@@ -197,7 +200,7 @@ public:
     						}
     					}
     					 if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-    					     if (posicao.x > 70) {
+    					     if (posicao.x > 115) {
     					        spriteJogador.move(-velocidadeMovimento, 0);
     					        spriteJogador.setScale(-3, 3); // inverte escala
     					     }
@@ -234,6 +237,72 @@ public:
                         bool colisao(sf::FloatRect Objeto) {
                           		return spriteJogador.getGlobalBounds().intersects(Objeto);
                           	}
+
     };
 
+
+//------------------------------------------- TEMPO E FASE ---------------------------------------------
+
+
+class FonteTexto {
+public:
+    sf::Font fonte;
+    sf::Text texto1, texto2;
+    sf::Clock clock;
+    bool temporizador = false;
+    int contador = 990;
+
+    FonteTexto() {
+        if (!fonte.loadFromFile("AtariSmall.ttf")) {
+            std::cerr << "Erro ao carregar a fonte!" << std::endl;
+        }
+
+        texto1.setFont(fonte);
+        texto1.setString("990");
+        texto1.setCharacterSize(80);
+        texto1.setFillColor(sf::Color::Yellow);
+        texto1.setPosition(sf::Vector2f(650, 5));
+
+    }
+
+    void fasePersonagem(sf::RenderWindow& window){
+    	if (!fonte.loadFromFile("AtariSmall.ttf")) {
+    	            std::cerr << "Erro ao carregar a fonte!" << std::endl;
+    	        }
+
+
+    	        texto2.setFont(fonte);
+    	        texto2.setString("0000");
+    	        texto2.setCharacterSize(80);
+    	        texto2.setFillColor(sf::Color::Yellow);
+    	        texto2.setPosition(sf::Vector2f(200, 5));
+
+    	        window.draw(texto2);
+    }
+
+
+    void atualizaContador(sf::RenderWindow& window, bool& temporizador) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        	temporizador = true;  // Inicia o timer
+        }
+
+        if (temporizador) {
+            float variacaoTempo = clock.getElapsedTime().asSeconds(); // Obtém o tempo decorrido em segundos
+            if (variacaoTempo >= 1.0f) { // Atualiza o contador a cada 1 segundo
+                contador -= 10; // Diminui de 10 em 10
+                clock.restart(); // Reinicia o relógio
+            }
+
+            // Atualiza o texto do contador
+            std::ostringstream oss;
+            oss <<  contador;
+            texto1.setString(oss.str());
+        }
+
+        window.draw(texto1);
+    }
+};
+
+
 #endif /* ENTIDADES_HPP_ */
+
