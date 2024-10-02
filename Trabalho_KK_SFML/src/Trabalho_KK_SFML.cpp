@@ -9,6 +9,35 @@
 #include "includes/math.hpp"
 #include "entidades.hpp"
 
+ const int h=25, l=33;
+                    	sf::String tilemap[h] = {
+                    	"                                 ",
+                    	"                                 ",
+                    	"                                 ",
+                    	"   BBBBBBBBBBBBBBBBBBBBBBBBBBB   ",
+                    	"   B           OOO           B   ",
+                    	"  B            OOO            B  ",
+                    	"  B OO                     OO B  ",
+                    	"  B OO                     OO B  ",
+                    	" B             OOO             B ",
+                    	" B             OOO             B ",
+                    	" B             OOO             B ",
+                    	" BOO                         OOB ",
+                    	" BOO                         OOB ",
+                    	" B             OOO             B ",
+                    	" B             OOO             B ",
+                    	" B             OOO             B ",
+                    	" BOO                         OOB ",
+                    	" BOO                         OOB ",
+                    	" B             OOO             B ",
+                    	" BOO           OOO             B ",
+                    	" BOO           OOO           OOB ",
+                    	" BOO                         OOB ",
+                    	" BOO                         OOB ",
+                    	" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ",
+                    	"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+                    	};
+
 int main(){
 
 
@@ -41,10 +70,27 @@ int main(){
            princesa.colisaoPrincesa(window);
            player.updatePlayer();
            player.mover();
+           player.colisao(tilemap, h, l);
+           sf::RectangleShape rectangle(sf::Vector2f(30, 30));
 
      //Desenhar
            window.clear(sf::Color::White);
            window.draw(fundo.spriteFundo);
+           for (int i{}; i < h; ++i){
+        	   for (int j{}; j < l; ++j){
+                   if( tilemap[i][j] == 'B'){
+                   rectangle.setFillColor(sf::Color::Transparent);
+                   }
+                   if( tilemap[i][j] == 'O'){
+                   rectangle.setFillColor(sf::Color::Transparent);
+                   }
+                   if( tilemap[i][j] == ' '){
+                   continue;
+                   }
+                   rectangle.setPosition( j * 30, i * 30);
+                   window.draw(rectangle);
+        	   	   }
+            }
            window.draw(bomba.spriteBomba);
            window.draw(princesa.spritePrincesa);
            window.draw(player.spriteJogador);
@@ -52,5 +98,4 @@ int main(){
            fase.fasePersonagem(window);
            window.display();
         }
-        return 0;
 }
