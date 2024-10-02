@@ -190,7 +190,9 @@ public:
         }
     }
 
-    void mover() {
+
+
+    /*void mover() {
     	sf::Vector2f posicao = spriteJogador.getPosition();
 
     					if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
@@ -208,6 +210,7 @@ public:
     	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
     	   		   		if (spriteJogador.getPosition().y >0 ) //adcionar limite
     	   		   			spriteJogador.setPosition(posicao + sf::Vector2f(0, -1));
+    	   		   		//this->spriteJogador.move(0, -5);
     	   		   		  }
     	   		   		 if(sf::Keyboard::isKeyPressed(sf::Keyboard::S)){
     	   		   		if (spriteJogador.getPosition().y < 0 ) //adcionar limite
@@ -216,14 +219,14 @@ public:
 
 
 
-                      //Colisão
-                if (spriteJogador.getPosition().y >= alturaChao) {
-                                  spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
-                                  ColisaoChao = true;
-                                  velocidadeY = 0;
-                              }
+    	   		      //Colisão
+    	   		                   if (spriteJogador.getPosition().y >= alturaChao) {
+    	   		                                     spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
+    	   		                                     ColisaoChao = true;
+    	   		                                     velocidadeY = 0;
+    	   		                                 }
 
-                              //Pulo
+                             // Pulo
                              if (ColisaoChao && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
                                   velocidadeY = puloForca;
                                  ColisaoChao = false;
@@ -232,11 +235,134 @@ public:
                               velocidadeY += gravidade;
                               spriteJogador.move(0, velocidadeY);
 
-                          	}//fim função mover
 
-                        bool colisao(sf::FloatRect Objeto) {
+
+                          	}*/
+
+    void mover() {
+
+    	 bool colidindoComEscada = false;
+
+        sf::Vector2f posicao = spriteJogador.getPosition();
+
+        // Movimentação horizontal
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            if (posicao.x < 870) {
+                spriteJogador.move(velocidadeMovimento, 0);
+                spriteJogador.setScale(3, 3);
+            }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            if (posicao.x > 115) {
+                spriteJogador.move(-velocidadeMovimento, 0);
+                spriteJogador.setScale(-3, 3); // inverte escala
+            }
+        }
+
+        // Pulo
+       if (ColisaoChao && sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            velocidadeY = puloForca;
+            ColisaoChao = false;
+        }
+
+        // Aplica a gravidade apenas se não estiver em uma escada
+        if (!colidindoComEscada) {
+            velocidadeY += gravidade;
+        }
+
+        if(colidindoComEscada) {
+        	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W)){
+        	 /* if (spriteJogador.getPosition().y >0 ) //adcionar limite
+        	  spriteJogador.setPosition(posicao + sf::Vector2f(0, -1));*/
+        	  this->spriteJogador.move(0, -5);
+        	    	   		   		  }
+        }
+
+        // Move o personagem verticalmente
+        spriteJogador.move(0, velocidadeY);
+
+        // Verifica colisão com o chão
+        if (spriteJogador.getPosition().y >= alturaChao) {
+            spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
+            ColisaoChao = true;
+            velocidadeY = 0;
+        }
+    }
+
+                      /*  bool colisao(sf::FloatRect Objeto) {
                           		return spriteJogador.getGlobalBounds().intersects(Objeto);
-                          	}
+                          	}*/
+
+
+                        /*void colisao(const sf::String tilemap[], int h, int l) {
+                            // Obtém a posição atual do personagem
+                            sf::Vector2f posicao = spriteJogador.getPosition();
+                            int tileX = posicao.x / 30;
+                            int tileY = posicao.y / 30;
+
+                            std::cout << "Posição X: " << posicao.x << " Posição Y: " << posicao.y << std::endl;
+                            std::cout << "Tile X: " << tileX << " Tile Y: " << tileY << std::endl;
+
+                            bool colidindoComEscada = false;
+
+                            // Verifica se o personagem está dentro dos limites do mapa
+                            if (tileX >= 0 && tileX < l && tileY >= 0 && tileY < h) {
+                                bool colidindoComEscada = (tilemap[tileY][tileX] == 'O');
+
+                                // Permite movimento vertical se o personagem estiver em uma escada
+                                if (colidindoComEscada) {
+                                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                                        spriteJogador.move(0, -5.0f);  // Sobe mais rápido para testar
+                                    }
+                                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                                        spriteJogador.move(0, 5.0f);   // Desce mais rápido para testar
+                                    }
+                                }
+
+                                // Verifica colisão com o chão
+                                if (!colidindoComEscada) {
+                                    if (spriteJogador.getPosition().y >= alturaChao) {
+                                        spriteJogador.setPosition(spriteJogador.getPosition().x, alturaChao);
+                                        ColisaoChao = true;
+                                        velocidadeY = 0;
+                                    }
+                                }
+                            }
+
+                            // Aplica a gravidade apenas se não estiver em uma escada
+                            if (!colidindoComEscada) {
+                                velocidadeY += gravidade;
+                                spriteJogador.move(0, velocidadeY);
+                            }
+                        }*/
+
+                        void colisao(const sf::String tilemap[], int h, int l) {
+                            sf::Vector2f posicao = spriteJogador.getPosition();
+                            int tileX = posicao.x / 30;
+                            int tileY = posicao.y / 30;
+
+                            bool colidindoComEscada = false;
+
+                            if (tileX >= 0 && tileX < l && tileY >= 0 && tileY < h) {
+                                colidindoComEscada = (tilemap[tileY][tileX] == 'O');
+
+                                // Permite movimento vertical se o personagem estiver em uma escada
+                                if (colidindoComEscada) {
+                                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                                        spriteJogador.move(0, -5.0f); // Sobe
+                                    }
+                                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                                        spriteJogador.move(0, 5.0f); // Desce
+                                    }
+                                }
+                            }
+
+                            // Aplica a gravidade apenas se não estiver em uma escada
+                            if (!colidindoComEscada) {
+                                velocidadeY += gravidade;
+                                spriteJogador.move(0, velocidadeY);
+                            }
+                        }
 
     };
 
@@ -305,4 +431,3 @@ public:
 
 
 #endif /* ENTIDADES_HPP_ */
-
