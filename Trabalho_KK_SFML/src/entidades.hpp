@@ -169,7 +169,7 @@ public:
     bool ColisaoChao = true;
     float gravidade = 0.2f;
     float puloForca = -4.6f;
-    float alturaChao = 630;
+    float alturaChao = 640;
     float velocidadeMovimento = 2.0f;
 
     Personagem() {
