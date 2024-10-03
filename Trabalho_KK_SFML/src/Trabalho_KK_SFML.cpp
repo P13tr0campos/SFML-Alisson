@@ -7,7 +7,7 @@
 
 const int h = 74, l = 99;
 sf::String tilemap[h] =
-			  { "                                                                                                   ",
+			      { "                                                                                                   ",
 				"                                                                                                   ",
 				"                                                                                                   ",
 				"                                                                                                   ",
