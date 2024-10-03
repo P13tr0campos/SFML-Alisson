@@ -5,56 +5,104 @@
 #include "Jogador.hpp"
 #include "Tempo.hpp"
 
-const int h = 25, l = 33;
+const int h = 74, l = 99;
 sf::String tilemap[h] =
-          { "                                 ",
-				"                                 ",
-				"                                 ",
-				"   BBBBBBBBBBBBBBBBBBBBBBBBBBB   ",
-				"   B           OOO           B   ",
-				"  B            OOO            B  ",
-				"  B OO                     OO B  ",
-				"  B OO                     OO B  ",
-				" B             OOO             B ",
-				" B             OOO             B ",
-				" B             OOO             B ",
-				" BOO                         OOB ",
-				" BOO                         OOB ",
-				" B             OOO             B ",
-				" B             OOO             B ",
-				" B             OOO             B ",
-				" BOO                         OOB ",
-				" BOO                         OOB ",
-				" B             OOO             B ",
-				" BOO           OOO             B ",
-				" BOO           OOO           OOB ",
-				" BOOsssssssssssssssssssssssssOOB ",
-				" BOO                         OOB ",
-				" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ",
-				"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" };
-
+			  { "                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"           BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB           ",
+				"           B                                   OOOOO                                   B           ",
+				"           B                                   OOOOO                                   B           ",
+				"           B                                   OOOOO                                   B           ",
+				"           B                                   OOOOO                                   B           ",
+				"           B                                   OOOOO                                   B           ",
+				"        BBBB     sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss     BBBB        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"        B   OOOOO                                                                 OOOOO   B        ",
+				"      BBBsss     ssssssssssssss    ssssssssssss     ssssssssssss   sssssssssssssss        BBB      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B     sssssssssssssssssssssssssssssssssss     sssssssssssssssssssssssssssssssssss     B      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+			    "      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      B     ssssssssssss   ssssssssssssssssssss     sssssssssssssssssss    ssssssssssss     B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B     sssssssssssssssssssssssssssssssssss     sssssssssssssssssssssssssssssssssss     B      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      B     ssssssssssssssssssssss   ssssssssss     ssssssssss   ssssssssssssssssssssss     B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+			    "      B                                        OOOOO                                        B      ",
+				"      B                                        OOOOO                                        B      ",
+				"      B     sssssssssssssssssssssssssssssssssss     sssssssssssssssssssssssssssssssssss     B      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BOOOOO                                                                           OOOOOB      ",
+				"      BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB      ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   ",
+				"                                                                                                   " };
 
 std::vector<sf::RectangleShape> retangles() {
-
 	std::vector<sf::RectangleShape> retangles;
-	sf::RectangleShape rectangle(sf::Vector2f(30, 30));
+	sf::RectangleShape rectangle(sf::Vector2f(10, 10));
 	for (unsigned int i = 0; i < h; ++i) {
 		for (int j { }; j < l; ++j) {
-			rectangle.setSize(sf::Vector2f(30, 30));
 			if (tilemap[i][j] == 'B') {
+				rectangle.setSize(sf::Vector2f(10, 10));
 				rectangle.setFillColor(sf::Color::Transparent);
 			}
 			if (tilemap[i][j] == 'O') {
+				rectangle.setSize(sf::Vector2f(10, 10));
 				rectangle.setFillColor(sf::Color::Transparent);
 			}
 			if (tilemap[i][j] == 's') {
-				rectangle.setSize(sf::Vector2f(30, 10));
-				rectangle.setFillColor(sf::Color::Magenta);
+				rectangle.setSize(sf::Vector2f(10, 10));
+				rectangle.setFillColor(sf::Color::Transparent);
 			}
 			if (tilemap[i][j] == ' ') {
 				continue;
 			}
-			rectangle.setPosition(j * 30, i * 30);
+			rectangle.setPosition(j * 10, i * 10);
 			retangles.push_back(rectangle);
 		}
 
@@ -63,21 +111,25 @@ std::vector<sf::RectangleShape> retangles() {
 	return retangles;
 }
 
+sf::FloatRect rect;
+	float dx = 0.f, dy = 0.f;
+	bool sobreChao = false;
+
 int main() {
-	// Criação da janela
-	sf::RenderWindow window { sf::VideoMode(990, 750), "King Kong" };
+	// CriaÃ§Ã£o da janela
+	sf::RenderWindow window { sf::VideoMode(990, 740), "King Kong" };
 	window.setVerticalSyncEnabled(true);
 
-	//Declaração de objetos das classes
+	//DeclaraÃ§Ã£o de objetos das classes
 	Fundo fundo;
 	Bomba bomba;
 	Personagem player;
 	Princesa princesa;
-	FonteTexto tempo, fase;
+	FonteTexto tempo, fase, fimDeJogo;
 	sf::Clock clock;
 	std::vector<sf::RectangleShape> rectangles = retangles();
 
-	bool temporizador = false; // Variável para controlar se o temporizador começou
+	bool temporizador = false; // VariÃ¡vel para controlar se o temporizador comeÃ§ou
 
 	//Loop da janela
 	while (window.isOpen()) {
@@ -87,21 +139,20 @@ int main() {
 				window.close();
 		}
 
-		// Atualizações
+		// AtualizaÃ§Ãµes
 
 		bomba.colisaoBomba(window);
 		princesa.colisaoPrincesa(window);
 		player.updatePlayer();
 		player.mover();
-		player.colisao(tilemap, h, l);
-
+		//player.colisao(tilemap, h, l);
 
 		//Desenhar
 		window.clear(sf::Color::White);
 		window.draw(fundo.spriteFundo);
 
 		for (unsigned int i = 0; i < rectangles.size(); ++i) {
-			if (rectangles.at(i).getGlobalBounds().intersects(player.spriteJogador.getGlobalBounds()) and rectangles.at(i).getSize() == sf::Vector2f(30, 10)) {
+			if (rectangles.at(i).getGlobalBounds().intersects(player.spriteJogador.getGlobalBounds()) and rectangles.at(i).getSize() == sf::Vector2f(10, 10)) {
 				player.spriteJogador.move(0, -player.gravidade);
 				player.ColisaoChao = true;
 			}
@@ -114,6 +165,7 @@ int main() {
 		window.draw(player.spriteJogador);
 		tempo.atualizaContador(window, temporizador);
 		fase.fasePersonagem(window);
+		fimDeJogo.atualizaContador(window, temporizador);
 		window.display();
 	}
 }
