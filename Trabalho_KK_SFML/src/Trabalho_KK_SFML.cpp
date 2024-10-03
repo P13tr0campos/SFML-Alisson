@@ -1,16 +1,13 @@
-#include <iostream>
-#include <cstdio>
-#include <cstdlib>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
-#include <vector>
-#include <SFML/Graphics/Rect.hpp>
-#include "includes/math.hpp"
-#include "entidades.hpp"
+#include "Includes.hpp"
+#include "Fundo.hpp"
+#include "Princesa.hpp"
+#include "Bomba.hpp"
+#include "Jogador.hpp"
+#include "Tempo.hpp"
+
 const int h = 25, l = 33;
 sf::String tilemap[h] =
-			  { "                                 ",
+          { "                                 ",
 				"                                 ",
 				"                                 ",
 				"   BBBBBBBBBBBBBBBBBBBBBBBBBBB   ",
@@ -35,6 +32,7 @@ sf::String tilemap[h] =
 				" BOO                         OOB ",
 				" BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB ",
 				"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" };
+
 
 std::vector<sf::RectangleShape> retangles() {
 
