@@ -6,14 +6,14 @@
 class FonteTexto {
 public:
 	sf::Font fonte;
-	sf::Text texto1, texto2;
+	sf::Text texto1, texto2, gameOver;
 	sf::Clock clock;
 	bool temporizador = false;
 	int contador = 990;
 
-	FonteTexto() {
+	FonteTexto(){
 		if (!fonte.loadFromFile("AtariSmall.ttf")) {
-			std::cerr << "Erro ao carregar a fonte!" << std::endl;
+			std::cout << "Erro ao carregar a fonte!" << std::endl;
 		}
 
 		texto1.setFont(fonte);
@@ -22,11 +22,17 @@ public:
 		texto1.setFillColor(sf::Color::Yellow);
 		texto1.setPosition(sf::Vector2f(650, 5));
 
+		gameOver.setFont(fonte);
+		gameOver.setString("Game Over!");
+		gameOver.setCharacterSize(100);
+		gameOver.setFillColor(sf::Color::Yellow);
+		gameOver.setPosition(sf::Vector2f(250, 300));
+
 	}
 
 	void fasePersonagem(sf::RenderWindow &window) {
 		if (!fonte.loadFromFile("AtariSmall.ttf")) {
-			std::cerr << "Erro ao carregar a fonte!" << std::endl;
+			std::cout << "Erro ao carregar a fonte!" << std::endl;
 		}
 
 		texto2.setFont(fonte);
@@ -44,10 +50,10 @@ public:
 		}
 
 		if (temporizador) {
-			float variacaoTempo = clock.getElapsedTime().asSeconds(); // Obtém o tempo decorrido em segundos
+			float variacaoTempo = clock.getElapsedTime().asSeconds(); // ObtÃ©m o tempo decorrido em segundos
 			if (variacaoTempo >= 1.0f) { // Atualiza o contador a cada 1 segundo
 				contador -= 10; // Diminui de 10 em 10
-				clock.restart(); // Reinicia o relógio
+				clock.restart(); // Reinicia o relÃ³gio
 			}
 
 			// Atualiza o texto do contador
@@ -56,9 +62,13 @@ public:
 			texto1.setString(oss.str());
 		}
 
-		window.draw(texto1);
+		    if (contador > 0) {
+		    window.draw(texto1);
+		    } else {
+		    window.draw(gameOver);
+
+		    }
 	}
 };
-
 
 #endif /* TEMPO_HPP_ */
