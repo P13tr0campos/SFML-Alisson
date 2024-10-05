@@ -24,7 +24,8 @@ public:
 		texturaBomba[1].loadFromFile("bombC.png", sf::IntRect(32, 0, 64, 96));
 		texturaBomba[2].loadFromFile("bombC.png", sf::IntRect(64, 0, 96, 96));
 		spriteBomba.setTexture(texturaBomba[textura_corrente]);
-		spriteBomba.setPosition(130, 130);
+		spriteBomba.setPosition (220, 220);
+		spriteBomba.setScale(0.6 ,0.6);
 	}
 
 	// Atualiza a animação da bomba
@@ -63,9 +64,6 @@ public:
 		update(); // Atualiza a animação da bomba
 	}
 };
-
-
-
 
 
 #endif /* BOMBA_HPP_ */
